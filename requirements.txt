@@ -35,3 +35,9 @@ pypdf
  
 # embedding model
 sentence-transformers
+
+# UI
+streamlit
+
+# validation
+pydantic[email]
