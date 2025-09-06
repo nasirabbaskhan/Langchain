@@ -13,10 +13,10 @@ model = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.2)
 
 parser = StrOutputParser()
 
-class Review(BaseModel):
-    review: Literal['positive', 'negative'] = Field(description='Give the sentiment of the feedback')
+class Feedback(BaseModel):
+    sentiment: Literal['positive', 'negative'] = Field(description='Give the sentiment of the feedback')
 
-parser2 = PydanticOutputParser(pydantic_object=Review)
+parser2 = PydanticOutputParser(pydantic_object=Feedback)
 
 prompt1 = PromptTemplate(
     template="classify the sentiment of the following feedback text into postive or negative \n {feedback} \n {format_instruction}',",
@@ -24,7 +24,7 @@ prompt1 = PromptTemplate(
     partial_variables={"format_instruction": parser2.get_format_instructions()}
 )
 
-classifier_chain = prompt1 | model | parser2
+classifier_chain = prompt1 | model | parser2  # output: sentiment = "positive or negative"
 
 
 prompt2 = PromptTemplate(
@@ -39,16 +39,19 @@ prompt3 = PromptTemplate(
 
 
 branch_chain = RunnableBranch(
-    lambda x:x.sentiment == "posative" , prompt2 | model | parser,
-    lambda x:x.sentiment == "negative", prompt3 | model | parser,
+    (lambda x:x.sentiment == "positive" , prompt2 | model | parser),
+    (lambda x:x.sentiment == "negative", prompt3 | model | parser),
     RunnableLambda(lambda x: 'could not find sentiment ')
 
 )
+
 
 chain = classifier_chain | branch_chain
 
 result = chain.invoke({"feedback": "This is a beautiful phone"})
 
+print(classifier_chain.invoke({"feedback": "This is a beautiful phone"})) # print sentiment
 print(result)
+
 
 chain.get_graph().print_ascii()

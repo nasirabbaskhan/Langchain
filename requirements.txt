@@ -32,6 +32,8 @@ scikit-learn
 # RAG 
 faiss-cpu
 pypdf
+unstructured
+unstructured[pdf]
  
 # embedding model
 sentence-transformers
