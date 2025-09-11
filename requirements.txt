@@ -31,9 +31,14 @@ scikit-learn
 
 # RAG 
 faiss-cpu
+chromadb
+tiktoken
 pypdf
 unstructured
 unstructured[pdf]
+langchain_experimental
+wikipedia
+ddgs
  
 # embedding model
 sentence-transformers
