@@ -1,5 +1,8 @@
 from langchain_community.vectorstores import Chroma
 from langchain_core.documents import Document
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # A vector store retriever in Langchain is the most common type or retriever that lets you search and fetch documents from a vector store based on the sementic similarity using vector embdding.
 

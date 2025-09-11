@@ -1,6 +1,9 @@
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # MMR (maximal Marginal Relevance) is an information retrival algorithm designed to reduce redendancy in the retrieved results while maintainig high relevance to the query 
 

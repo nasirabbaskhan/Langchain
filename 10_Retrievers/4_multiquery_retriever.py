@@ -3,6 +3,9 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 from langchain_openai import ChatOpenAI
 from langchain.retrievers.multi_query import MultiQueryRetriever
+from dotenv import load_dotenv
+
+load_dotenv()
 
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.2)
 
@@ -34,7 +37,7 @@ vectorstore = FAISS.from_documents(documents=all_docs, embedding=embedding_model
 
 
 # Create simple retrievers
-retriever = vectorstore.as_retriever(search_kwargs={"k": 5}),
+retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
 
 # Create multiquery_retriever
 multiquery_retriever = MultiQueryRetriever.from_llm(

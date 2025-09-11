@@ -3,7 +3,9 @@ from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmb
 from langchain.retrievers.contextual_compression import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import LLMChainExtractor
 from langchain_core.documents import Document
+from dotenv import load_dotenv
 
+load_dotenv()
 # ContextualCompressionRetriever is an Advance retriever that improves the retrieval quality by compressing documents after retrieval - keeping only the relavent content based on the user query  
 
 # Recreate the document objects from the previous data
@@ -40,7 +42,7 @@ vectorstore = FAISS.from_documents(docs, embedding_model)
 base_retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
 
 # Set up the compressor using an LLM
-llm = llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.2)
+llm  = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.2)
 compressor = LLMChainExtractor.from_llm(llm)
 
 # Create the contextual compression retriever
